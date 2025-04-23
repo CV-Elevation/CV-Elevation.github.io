@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cv-elevation.github.io/img/holo.jpg">
 <meta property="article:published_time" content="2025-04-21T15:03:09.000Z">
-<meta property="article:modified_time" content="2025-04-22T05:34:58.810Z">
+<meta property="article:modified_time" content="2025-04-23T12:19:39.634Z">
 <meta property="article:author" content="KuoZ">
 <meta property="article:tag" content="JavaSE">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "http://cv-elevation.github.io/2025/04/21/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E8%BF%9B%E9%98%B6%EF%BC%89/",
   "image": "http://cv-elevation.github.io/img/holo.jpg",
   "datePublished": "2025-04-21T15:03:09.000Z",
-  "dateModified": "2025-04-22T05:34:58.810Z",
+  "dateModified": "2025-04-23T12:19:39.634Z",
   "author": [
     {
       "@type": "Person",
@@ -159,7 +159,7 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/miku2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">KuoZ's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">面向对象（进阶）</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">面向对象（进阶）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-21T15:03:09.000Z" title="发表于 2025-04-21 23:03:09">2025-04-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-22T05:34:58.810Z" title="更新于 2025-04-22 13:34:58">2025-04-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>面向对象(进阶)</h1>
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/miku2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">KuoZ's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">面向对象（进阶）</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">面向对象（进阶）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-21T15:03:09.000Z" title="发表于 2025-04-21 23:03:09">2025-04-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-23T12:19:39.634Z" title="更新于 2025-04-23 20:19:39">2025-04-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>面向对象(进阶)</h1>
 <h2 id="this关键字">this关键字</h2>
 <p>使用场景：声明一个属性对应的setXxx方法时，形参和属性名称一样，使用this关键字可以区分属性和形参。</p>
 <p>this理解为当前对象，也就是说代表调用属性或方法的对象</p>
@@ -168,8 +168,8 @@
 <p>在方法内使用（准确说是非static修饰的方法）：对于属性可以使用<em>this.</em> 表示是当前对象调用的属性或方法，我们通常可以省略。但是在属性的名称和形参变量的名称一样的情况下，就必须用<em>this.</em> 标示出成员变量。</p>
 <p>在构造器中使用：一样的，对于属性可以使用this.表示是当前对象调用的属性或方法，我们通常可以省略。但是在属性的名称和形参变量的名称一样的情况下，就必须用<em>this.</em> 标示出成员变量。</p>
 <h3 id="this调用构造器">this调用构造器</h3>
-<p>使用*this(形参列表)*调用当前类中<strong>其它</strong>的构造器，<em>this(形参列表)</em> 必须声明在当前构造器的首行，所以在一个构造器最多出现一次。</p>
-<p>理解：在类中有n个构造器，则最多有n-1个this(形参列表)结构</p>
+<p>使用<em>this(形参列表)</em> 调用当前类中<strong>其它</strong>的构造器，<em>this(形参列表)</em> 必须声明在当前构造器的首行，所以在一个构造器最多出现一次。</p>
+<p>理解：在类中有n个构造器，则最多有n-1个<em>this(形参列表)</em> 结构</p>
 <h2 id="面向对象特征之二：继承性">面向对象特征之二：继承性</h2>
 <h3 id="继承的基本概念">继承的基本概念</h3>
 <p><strong>继承的格式</strong></p>
