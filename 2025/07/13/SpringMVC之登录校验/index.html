@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SpringMVC之登录校验 | KuoZ's blog</title><meta name="author" content="KuoZ"><meta name="copyright" content="KuoZ"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="SpringMVC之登录校验 登录功能的实现比较简单，只需要根据输入的用户名和密码，或者其他登录验证形式，到数据库查询是否有这条数据就可以了。 但实际上这是一个伪登录的功能。因为HTTP协议是一种无状态的协议，所以在后续的访问中无法记录登录状态。也就是登录校验功能没有实现，下边来详细讲解一下该功能的实现。 --- title: 登录校验 --- graph LR 浏览器--&gt;|请求|拦截器">
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SpringMVC之登录校验 | KuoZ's blog</title><meta name="author" content="KuoZ"><meta name="copyright" content="KuoZ"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="SpringMVC之登录校验 登录功能的实现比较简单，只需要根据输入的用户名和密码，或者其他登录验证形式，到数据库查询是否有这条数据就可以了。 但实际上这是一个伪登录的功能。因为HTTP协议是一种无状态的协议，所以在后续的访问中无法记录登录状态。也就是登录校验功能没有实现，下边来详细讲解一下该功能的实现。 graph LR 浏览器--&gt;|请求|拦截器 拦截器--&gt;|响应|浏览器 拦截器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC之登录校验">
 <meta property="og:url" content="http://cv-elevation.github.io/2025/07/13/SpringMVC%E4%B9%8B%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/index.html">
 <meta property="og:site_name" content="KuoZ&#39;s blog">
-<meta property="og:description" content="SpringMVC之登录校验 登录功能的实现比较简单，只需要根据输入的用户名和密码，或者其他登录验证形式，到数据库查询是否有这条数据就可以了。 但实际上这是一个伪登录的功能。因为HTTP协议是一种无状态的协议，所以在后续的访问中无法记录登录状态。也就是登录校验功能没有实现，下边来详细讲解一下该功能的实现。 --- title: 登录校验 --- graph LR 浏览器--&gt;|请求|拦截器">
+<meta property="og:description" content="SpringMVC之登录校验 登录功能的实现比较简单，只需要根据输入的用户名和密码，或者其他登录验证形式，到数据库查询是否有这条数据就可以了。 但实际上这是一个伪登录的功能。因为HTTP协议是一种无状态的协议，所以在后续的访问中无法记录登录状态。也就是登录校验功能没有实现，下边来详细讲解一下该功能的实现。 graph LR 浏览器--&gt;|请求|拦截器 拦截器--&gt;|响应|浏览器 拦截器">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cv-elevation.github.io/img/holo.jpg">
 <meta property="article:published_time" content="2025-07-13T07:21:29.000Z">
-<meta property="article:modified_time" content="2025-07-13T07:23:31.749Z">
+<meta property="article:modified_time" content="2025-07-13T10:18:47.125Z">
 <meta property="article:author" content="KuoZ">
 <meta property="article:tag" content="会话技术">
 <meta property="article:tag" content="Token">
@@ -21,7 +21,7 @@
   "url": "http://cv-elevation.github.io/2025/07/13/SpringMVC%E4%B9%8B%E7%99%BB%E5%BD%95%E6%A0%A1%E9%AA%8C/",
   "image": "http://cv-elevation.github.io/img/holo.jpg",
   "datePublished": "2025-07-13T07:21:29.000Z",
-  "dateModified": "2025-07-13T07:23:31.749Z",
+  "dateModified": "2025-07-13T10:18:47.125Z",
   "author": [
     {
       "@type": "Person",
@@ -180,13 +180,10 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/miku2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">KuoZ's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">SpringMVC之登录校验</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">SpringMVC之登录校验</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-13T07:21:29.000Z" title="发表于 2025-07-13 15:21:29">2025-07-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-13T07:23:31.749Z" title="更新于 2025-07-13 15:23:31">2025-07-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>SpringMVC之登录校验</h1>
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/miku2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">KuoZ's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">SpringMVC之登录校验</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">SpringMVC之登录校验</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-13T07:21:29.000Z" title="发表于 2025-07-13 15:21:29">2025-07-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-13T10:18:47.125Z" title="更新于 2025-07-13 18:18:47">2025-07-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>SpringMVC之登录校验</h1>
 <p>登录功能的实现比较简单，只需要根据输入的用户名和密码，或者其他登录验证形式，到数据库查询是否有这条数据就可以了。</p>
 <p>但实际上这是一个伪登录的功能。因为HTTP协议是一种无状态的协议，所以在后续的访问中无法记录登录状态。也就是<strong>登录校验</strong>功能没有实现，下边来详细讲解一下该功能的实现。</p>
-<pre><code class="highlight mermaid">---
-title: 登录校验
----
-graph LR
+<pre><code class="highlight mermaid">graph LR
 浏览器--&gt;|请求|拦截器
 拦截器--&gt;|响应|浏览器
 拦截器--&gt;login
@@ -282,7 +279,9 @@ login--&gt;|存|登录标记
 	浏览器--&gt;|请求|Filter
 	
 	subgraph Filter
-		1.放行前逻辑\n2.放行\n4.放行后逻辑
+		1.放行前逻辑
+		2.放行
+		4.放行后逻辑
 	end
 	
 	Filter--&gt;3.Web资源
@@ -316,10 +315,7 @@ login--&gt;|存|登录标记
 <p><code>/*</code>：拦截一级路径</p>
 <p><code>/**</code>：拦截任意级路径</p>
 <p>拦截器的执行流程</p>
-<pre><code class="highlight mermaid">---
-title: Web服务器
----
-graph LR
+<pre><code class="highlight mermaid">graph LR
 	Filter--&gt;Dispatcher
 	subgraph Spring
 		Dispatcher--&gt;Interceptor
