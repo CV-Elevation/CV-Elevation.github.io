@@ -6,7 +6,7 @@
   <link href="http://cv-elevation.github.io/atom.xml" rel="self"/>
   
   <link href="http://cv-elevation.github.io/"/>
-  <updated>2025-07-20T16:58:49.844Z</updated>
+  <updated>2025-07-23T11:03:42.635Z</updated>
   <id>http://cv-elevation.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Redis之多级缓存</title>
+    <link href="http://cv-elevation.github.io/2025/07/23/Redis%E4%B9%8B%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/"/>
+    <id>http://cv-elevation.github.io/2025/07/23/Redis%E4%B9%8B%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/</id>
+    <published>2025-07-23T11:01:55.000Z</published>
+    <updated>2025-07-23T11:03:42.635Z</updated>
+    
+    <content type="html"><![CDATA[<h1>Redis之多级缓存——亿级流量方案</h1><h2 id="序言">序言</h2><p>传统缓存问题：</p><p>传统缓存一般是请求到达Tomcat后，Tomcat先查询Redis缓存，如果<strong>未命中</strong>则查询数据库。存在下面问题：</p><ol><li>请求要经过Tomcat服务器，Tomcat的性能成为整个并发缓存的瓶颈</li><li>如果Redis缓存失效，会对数据库产生冲击</li></ol><p>多级缓存</p><p>充分利用各环节，分别添加缓存，减轻Tomcat的压力</p><p>客户端缓存-&gt;NGINX本地缓存-&gt;Redis-&gt;Tomcat-&gt;DB</p><p>其中Nginx缓存是业务Nginx，通常部署为集群，再由专门的Nginx做反向代理</p><h2 id="JVM进程缓存">JVM进程缓存</h2><p>Caffeine技术</p><p>缓存驱逐策略：</p><ul><li>基于容量、基于时间、基于引用</li></ul><p>实现效果：</p><ul><li>第一次查询走数据库，然后就会放入缓存，之后查询就走缓存</li></ul><h2 id="Lua语法">Lua语法</h2><p>轻量小巧的脚本语言</p><p>数据类型</p><p>nil、boolean、number、string、function、table、type函数</p><p>变量</p><p>声明变量</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> var_name = var_value</span><br><span class="line">#数组</span><br><span class="line"><span class="keyword">local</span> arr = &#123;<span class="string">&#x27;java&#x27;</span>,<span class="string">&#x27;python&#x27;</span>,<span class="string">&#x27;c++&#x27;</span>&#125;</span><br><span class="line">#map</span><br><span class="line"><span class="keyword">local</span> map = &#123;name = <span class="string">&#x27;Jack&#x27;</span>,age = <span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure><p>访问数组，下标从一开始arr[1]</p><p>访问Map，</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">map.name</span><br></pre></td></tr></table></figure><p>循环遍历</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> arr = &#123;<span class="string">&#x27;Java&#x27;</span>,<span class="string">&#x27;lua&#x27;</span>,<span class="string">&#x27;python&#x27;</span>&#125;</span><br><span class="line"><span class="keyword">for</span> index,value <span class="keyword">in</span> <span class="built_in">ipairs</span>(arr) <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">print</span>(index,value)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">for</span> key,value <span class="keyword">in</span> <span class="built_in">pairs</span>(map) <span class="keyword">do</span></span><br><span class="line">    prinr(key,value)</span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure><p>函数</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun_name</span><span class="params">(para)</span></span></span><br><span class="line">    <span class="comment">---</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure><p>条件控制</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(布尔表达式)</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">    <span class="comment">---</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="comment">---</span></span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure><h2 id="多级缓存">多级缓存</h2><h3 id="配置nginx">配置nginx</h3><ol><li><p>OpenResty是基于Nginx的高性能Web平台</p></li><li><p>OpenResty使用流程类似于Nginx的使用</p></li><li><p>监听路径类似于Response<br>Lua文件类似于Service层</p></li><li><p>请求参数处理，不同参数格式有相应解析代码</p></li></ol><h3 id="nginx查询Tomcat">nginx查询Tomcat</h3><p>小规律：服务器前三位地址相同，第四位换为1</p><p>nginx提供了内部API用以发送http请求</p><p>Tomcat集群的负载均衡</p><p>保证缓存一直生效，同一路径访问同一服务器</p><p>修改负载均衡算法由轮询改为Hash算法来直接匹配</p><h3 id="添加Redis缓存">添加Redis缓存</h3><p>冷启动：服务器初启动时，没有缓存，此时查询会都导向数据库，带来较大的数据库压力</p><p>缓存预热：利用大数据统计热点数据，将热点数据存到缓存</p><h3 id="实现nginx优先查询Redis缓存：">实现nginx优先查询Redis缓存：</h3><p>OpenResty如何操作Redis？</p><p>OpenResty提供了操作Redis的模块，大概模块如下：</p><ul><li><p>封装函数，从Redis读取数据并返回</p></li><li><p>引入Redis模块，并初始化Redis模块</p></li><li><p>封装函数，释放Redis连接，其实是放入连接池</p></li></ul><h3 id="Nginx本地缓存">Nginx本地缓存</h3><p>利用shared dict开启词典</p><p>修改查询逻辑，加入缓存业务</p><h2 id="缓存同步">缓存同步</h2><p>三种方式</p><ol><li>设置有效期</li><li>同步双写，在修改数据的同时直接修改缓存</li><li>异步通知，改数据库时发事件通知，相关服务进行监听到通知后修改缓存</li></ol><p>监听mysql，使用MQ/canal实现</p><p>canal基于mysql的主从模式，canal伪装为mysql的一个slave节点完成通知</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;Redis之多级缓存——亿级流量方案&lt;/h1&gt;
+&lt;h2 id=&quot;序言&quot;&gt;序言&lt;/h2&gt;
+&lt;p&gt;传统缓存问题：&lt;/p&gt;
+&lt;p&gt;传统缓存一般是请求到达Tomcat后，Tomcat先查询Redis缓存，如果&lt;strong&gt;未命中&lt;/strong&gt;则查询数据库。存在下面问题：&lt;/</summary>
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="http://cv-elevation.github.io/tags/Redis/"/>
+    
+    <category term="lua" scheme="http://cv-elevation.github.io/tags/lua/"/>
+    
+  </entry>
   
   <entry>
     <title>分布式缓存——Redis高级篇</title>
