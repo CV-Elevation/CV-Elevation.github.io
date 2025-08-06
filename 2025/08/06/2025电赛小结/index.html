@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>2025电赛小结 | KuoZ's blog</title><meta name="author" content="KuoZ"><meta name="copyright" content="KuoZ"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="2025年电赛小结 序言： 2025年电赛，我们选做的是G题。目前还没有出结果，估计最后不加报告是70分，进国测应该是没希望了。不过对于一个已经转码，决定不搞硬件的人来说其实可以接受了。 日志： 2025年7月30日上午 选定题目 D、G甚至F G：感觉难点在于如何复现信号，保证同频 D：应该算精密测量了 F：完全不想做 G题大题思路： G题最重要的就是测量后DAC复现的问题：   数字滤波器？参">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025电赛小结">
+<meta property="og:url" content="http://cv-elevation.github.io/2025/08/06/2025%E7%94%B5%E8%B5%9B%E5%B0%8F%E7%BB%93/index.html">
+<meta property="og:site_name" content="KuoZ&#39;s blog">
+<meta property="og:description" content="2025年电赛小结 序言： 2025年电赛，我们选做的是G题。目前还没有出结果，估计最后不加报告是70分，进国测应该是没希望了。不过对于一个已经转码，决定不搞硬件的人来说其实可以接受了。 日志： 2025年7月30日上午 选定题目 D、G甚至F G：感觉难点在于如何复现信号，保证同频 D：应该算精密测量了 F：完全不想做 G题大题思路： G题最重要的就是测量后DAC复现的问题：   数字滤波器？参">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cv-elevation.github.io/img/holo.jpg">
+<meta property="article:published_time" content="2025-08-06T01:27:54.000Z">
+<meta property="article:modified_time" content="2025-08-06T01:29:36.774Z">
+<meta property="article:author" content="KuoZ">
+<meta property="article:tag" content="随笔">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cv-elevation.github.io/img/holo.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "2025电赛小结",
+  "url": "http://cv-elevation.github.io/2025/08/06/2025%E7%94%B5%E8%B5%9B%E5%B0%8F%E7%BB%93/",
+  "image": "http://cv-elevation.github.io/img/holo.jpg",
+  "datePublished": "2025-08-06T01:27:54.000Z",
+  "dateModified": "2025-08-06T01:29:36.774Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "KuoZ",
+      "url": "http://cv-elevation.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/Myfavicon2.ico"><link rel="canonical" href="http://cv-elevation.github.io/2025/08/06/2025%E7%94%B5%E8%B5%9B%E5%B0%8F%E7%BB%93/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 8 || hour >= 22
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '2025电赛小结',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="KuoZ's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/holo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/miku2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">KuoZ's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">2025电赛小结</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">2025电赛小结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-06T01:27:54.000Z" title="发表于 2025-08-06 09:27:54">2025-08-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-06T01:29:36.774Z" title="更新于 2025-08-06 09:29:36">2025-08-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>2025年电赛小结</h1>
+<h2 id="序言：">序言：</h2>
+<p>2025年电赛，我们选做的是G题。目前还没有出结果，估计最后不加报告是70分，进国测应该是没希望了。不过对于一个已经转码，决定不搞硬件的人来说其实可以接受了。</p>
+<h2 id="日志：">日志：</h2>
+<h3 id="2025年7月30日上午">2025年7月30日上午</h3>
+<p>选定题目</p>
+<p>D、G甚至F</p>
+<p>G：感觉难点在于如何复现信号，保证同频</p>
+<p>D：应该算精密测量了</p>
+<p>F：完全不想做</p>
+<p>G题大题思路：</p>
+<p>G题最重要的就是测量后DAC复现的问题：</p>
+<ul>
+<li>
+<p>数字滤波器？参数固定，不可即时更改(deprecated)（赛后补充，其实我最开始这个想法是正确的，但是和队长商量后他给出了这样的回复，总之就是还是不熟悉吧，也实现不了）</p>
+</li>
+<li>
+<p>使用dds合成后dac输出，高精度，或许可以抵消滚波（赛后补充，赛后证明是可以的方案，确实可以实现无反馈锁相，只要输出的基波频率足够准确）</p>
+</li>
+</ul>
+<p>基础部分：</p>
+<ol>
+<li>搭出预设的电路</li>
+</ol>
+<p>经仿真，是一个低通滤波器</p>
+<p>且在100Hz~3kHz范围内放大倍数约在5~0.7倍</p>
+<ol start="2">
+<li>后续电压步进要在0.1V，所以dac精度应至少有0.02V</li>
+</ol>
+<p>使用ad9959可以轻松达到此精度</p>
+<p>发挥部分：</p>
+<p>现在有3种方案</p>
+<p>1.FIR</p>
+<p>2.FFE</p>
+<p>3.高精度DDS</p>
+<p>串口屏需求：</p>
+<p>基础</p>
+<ol>
+<li>不加电路100~1MHz正弦波输出</li>
+<li>加电路2V 1kHz  1~2V 步长0.1V（100Hz~3kHz）[设置+启动]</li>
+</ol>
+<p>发挥</p>
+<ol start="3">
+<li>滤波类型判断（学习键）</li>
+<li>数字重现（一键启动探究装置）</li>
+</ol>
+<h3 id="2025年7月31日上午">2025年7月31日上午</h3>
+<p>完成了基础部分的全部内容，硬件结构有9959-&gt;放大器-&gt;已知电路模型</p>
+<p>12:53:48</p>
+<p>“如果解决不了这个问题，就等着退赛吧”，这是队长的原话。</p>
+<p>起因是想移植之前写的fft到队长发来的代码框架，但是之后发生了严重问题！<br>
+这个程序只要一烧写，芯片就会死锁，然后死掉，程序也不能运行，以为是烧写器或板子的问题，就又换了一个板子，可谁曾想，换了之后另一个板子也崩了。</p>
+<p>结果就是stm32都用不了了，这如果解决不了，我们就要退赛了。</p>
+<p>烧写后，一直报cannot halt the core，知道这大概是死锁了，原因大概是flash中的程序上电后就在跑，导致了无法烧写。</p>
+<p>在经过约一个小时的调试，找到了比较好的解决办法</p>
+<p>首先记得条stlink的模式为normal，能够识别到stlink之后参考下述博客</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/a1247812862/article/details/97773789">stm32 Invalid Rom Table 至芯片锁死解决方案_stm32erase能清除锁死状态吗-CSDN博客</a></p>
+<p>总归是解决了，这代码底板混用是真的不好！</p>
+<h3 id="晚上：">晚上：</h3>
+<p>完成了FFT算法和扫频的移植，准备搭建系统进行联调</p>
+<h3 id="2025年8月1日">2025年8月1日</h3>
+<p>时间是真紧，这还没干什么就倒数第二天早上了。其实队伍的节奏我不是很适应，感觉另两个队友总是早早地回去了，我自己也没什么事可以干，就也回去了。我是希望再多干一会儿的。这也导致了后边时间不够进而引发一些矛盾。</p>
+<p>上午首次联调过后没有成功，事后证明当时是因为基准源没有接。就这么一个小问题，这也反映了一个很大的问题就是队伍的配合真是一坨屎，但凡好一点这一次电赛的结果都能好不少。</p>
+<p>总之我又去调了代码，进行了优化。不过我当时没太关注相位谱的调试，因为我自己测了一些都还可以，就主要关注扫频的幅度谱了。</p>
+<p>到了下午，队长突然又换了器件，原来使用9959结果又换成了FPGA的外接DAC，这里我其实就不是很认同，因为基础部分已经测试过了，那么就不应该改器件，后续也因此引起了不好的结果，但是好歹也救回来了。</p>
+<p>总之方案也换了，原本我们是想用定时器去单独测频率的，后来又改成了用FFT去测，这个没问题。其实当时我有些质疑这里为什么要用FFT去扫频，又为什么要用FFT去得到输入信号的频谱。当时也能理解一些，因为用FFT去测量相位差是已经实现过的，直接分析输入信号的频谱可以应对更普遍的情况。但是事后证明，这个频谱分析的精度是难以实现的，不如直接判断波形，然后测量参数再得到频谱，再进行数字滤波。当时其实是向队长提出了这个疑问的，不过感觉他也没怎么想就把我驳回了。算鸟算鸟。</p>
+<h2 id="总结">总结</h2>
+<p>这次比赛最大的问题完全是配合问题，我觉得以我们的积累和能力最后完全有能力进国测，但是因为配合的问题最后搞得一团糟。</p>
+<p>具体的配合问题：</p>
+<p>1.交流太少，方案论证不够</p>
+<p>2.配合不好，最后一晚，我写好的代码明明可以运行，结果发给队长。他就说会报错，我让他看看是不是环境或者编译器版本的问题，他也不想解决，感觉就是质疑我的代码有问题。最后提出了直接交换位置来改的提案，这个提案是真的也有它的问题。我要负责报告，但是他们的电脑上一个没有word，一个没有visio，结果写报告就非常痛苦，报告一直拖到第四天中午才写完。</p>
+<p>3.刚才说到质疑代码有问题，这就是一个团队信任度的问题，我的代码直到最后也没发现有什么问题，最后烧写的也是我的环境上的代码。虽然有一点问题，不过当时我是真的承受了很大的压力，总之就是队长一直在压力我。这让我真的无语，你怎么不全部自己写stm32和fpga的代码呢，不还是没时间？如果你觉得自己完不成那么就必须承认要有一个人写FFT的代码，然后就是我来写了，虽然有一些问题，但是你压力人又有什么用呢？至少说，可能是不太熟，但是如果真还是这样，那这个队伍我应该是不想再待的。</p>
+<p>具体也有技术的问题：</p>
+<p>1.我的问题FFT分析代码不熟悉，不熟悉常规的频谱泄露解决、基波及各谐波频点的寻找、相位谱分析等。最严重的还是最后导致很大问题的相位谱分析，各谐波相位的测量，这个直到最后都不知道是什么问题，明明相位差可以测准，但是相位就是测不准，真的很离谱。</p>
+<p>2.FPGA一个小组只有一个人会，还不太熟悉。这个问题个人觉得不是很大，毕竟这个本身就有难度。但是对于两个培训3年，一个培训2年的队员来说，这个还不会确实有一点问题。</p>
+<p>总之复制8月2号凌晨5点的qq群情绪宣泄：</p>
+<p>这次电赛我经历了什么？</p>
+<p>芯片自锁、爆堆爆栈、程序跑飞、编译优化导致程序错误、内存管理</p>
+<p>还有什么？</p>
+<p>队友分歧，分崩离析，四肢不和，如同bangdream一样的组内关系</p>
+<p>然后呢？</p>
+<p>死气沉沉，熬个大夜，伤个大身</p>
+<p>所以呢？</p>
+<p><strong>不要来打电赛！不要来打电赛！不要来打电赛！</strong></p>
+<p>除非你有信仰，真的有的话，应该是没有的。先问问你的mcu吧！求他不要跑飞</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://CV-Elevation.github.io">KuoZ</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://cv-elevation.github.io/2025/08/06/2025%E7%94%B5%E8%B5%9B%E5%B0%8F%E7%BB%93/">http://cv-elevation.github.io/2025/08/06/2025%E7%94%B5%E8%B5%9B%E5%B0%8F%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://CV-Elevation.github.io" target="_blank">KuoZ's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></div><div class="post-share"><div class="social-share" data-image="/img/holo.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/07/23/Redis%E4%B9%8B%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" title="Redis之多级缓存"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Redis之多级缓存</div></div><div class="info-2"><div class="info-item-1">Redis之多级缓存——亿级流量方案 序言 传统缓存问题： 传统缓存一般是请求到达Tomcat后，Tomcat先查询Redis缓存，如果未命中则查询数据库。存在下面问题：  请求要经过Tomcat服务器，Tomcat的性能成为整个并发缓存的瓶颈 如果Redis缓存失效，会对数据库产生冲击  多级缓存 充分利用各环节，分别添加缓存，减轻Tomcat的压力 客户端缓存-&gt;NGINX本地缓存-&gt;Redis-&gt;Tomcat-&gt;DB 其中Nginx缓存是业务Nginx，通常部署为集群，再由专门的Nginx做反向代理 JVM进程缓存 Caffeine技术 缓存驱逐策略：  基于容量、基于时间、基于引用  实现效果：  第一次查询走数据库，然后就会放入缓存，之后查询就走缓存  Lua语法 轻量小巧的脚本语言 数据类型 nil、boolean、number、string、function、table、type函数 变量 声明变量 12345local var_name = var_value#数组local arr = &#123;&#x27;java&#x27;,&#x27;python&#x27;,&#x27;c++&#x27;&#125;#maplocal map = &#123;name = &#x27;Jack&#x27;,age = 2&#125; 访问数组，下标从一开始arr[1] 访问Map， 12map[&#x27;name&#x27;]map.name 循环遍历 1234567local arr = &#123;&#x27;Java&#x27;,&#x27;lua&#x27;,&#x27;python&#x27;&#125;for index,value in ipairs(arr) do    print(index,value)  	endfor key,value in pairs(map) do    prinr(key,value)    end 函数 1234function fun_name(para)    ---    return nil    end 条件控制 123456if(布尔表达式)    then    ---    else    ---    end 多级缓存 配置nginx   OpenResty是基于Nginx的高性能Web平台   OpenResty使用流程类似于Nginx的使用   监听路径类似于Response Lua文件类似于Service层   请求参数处理，不同参数格式有相应解析代码   nginx查询Tomcat 小规律：服务器前三位地址相同，第四位换为1 nginx提供了内部API用以发送http请求 Tomcat集群的负载均衡 保证缓存一直生效，同一路径访问同一服务器 修改负载均衡算法由轮询改为Hash算法来直接匹配 添加Redis缓存 冷启动：服务器初启动时，没有缓存，此时查询会都导向数据库，带来较大的数据库压力 缓存预热：利用大数据统计热点数据，将热点数据存到缓存 实现nginx优先查询Redis缓存： OpenResty如何操作Redis？ OpenResty提供了操作Redis的模块，大概模块如下：   封装函数，从Redis读取数据并返回   引入Redis模块，并初始化Redis模块   封装函数，释放Redis连接，其实是放入连接池   Nginx本地缓存 利用shared dict开启词典 修改查询逻辑，加入缓存业务 缓存同步 三种方式  设置有效期 同步双写，在修改数据的同时直接修改缓存 异步通知，改数据库时发事件通知，相关服务进行监听到通知后修改缓存  监听mysql，使用MQ/canal实现 canal基于mysql的主从模式，canal伪装为mysql的一个slave节点完成通知 </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/30/theme/" title="主题~"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-30</div><div class="info-item-2">主题~</div></div><div class="info-2"><div class="info-item-1">一点牢骚 ​		我自己的博客网站基本配置好了，选了张涩涩的miku当头图，或许这样能让我写代码和文的时候肾上腺素提升从而提高效率呢（bushi）。 ​		好像很多技术党都有一个自己博客，我也就东施效颦一下，但是其实更多的原因还是因为他人，也就是跟风。一直以来，我好像都缺乏一个内源的动力和目标，也没有什么自己的想法和意志，一直都是在不停地模仿。但是那又如何呢？ ​		我真的很讨厌自己去做选择，既没有能做出正确决定的视野，连做出决定的决心也没有。算了，我也不想过分自贬，就这样吧。 ​		言归正传，用了一天半搭建的网站还是可以庆祝一下的，也是有了一个个人的空间，或许可以成为我之后若干年还活着的证明。 ​		整体来讲，我想写一个是学习笔记，专业的技术文我也没有写的实力，还有就是一个经验积累，最后就是一些随想，当日记写呗就。 ​		最后附一张可爱的公主殿下！（typora的图片直接插入功能太好用了）  </div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/holo.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">KuoZ</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/CV-Elevation"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客，这是一个专属于我（KuoZ）的空间，它用来记录我的学习笔记、硬件或软件开发中的经验、还有吹水等等内容。本网站使用HEXO框架搭建。旧的两篇博客在博客园https://www.cnblogs.com/pulse1454</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">2025年电赛小结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E8%A8%80%EF%BC%9A"><span class="toc-text">序言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%EF%BC%9A"><span class="toc-text">日志：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2025%E5%B9%B47%E6%9C%8830%E6%97%A5%E4%B8%8A%E5%8D%88"><span class="toc-text">2025年7月30日上午</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2025%E5%B9%B47%E6%9C%8831%E6%97%A5%E4%B8%8A%E5%8D%88"><span class="toc-text">2025年7月31日上午</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%9A%E4%B8%8A%EF%BC%9A"><span class="toc-text">晚上：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2025%E5%B9%B48%E6%9C%881%E6%97%A5"><span class="toc-text">2025年8月1日</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/06/2025%E7%94%B5%E8%B5%9B%E5%B0%8F%E7%BB%93/" title="2025电赛小结">2025电赛小结</a><time datetime="2025-08-06T01:27:54.000Z" title="发表于 2025-08-06 09:27:54">2025-08-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/23/Redis%E4%B9%8B%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" title="Redis之多级缓存">Redis之多级缓存</a><time datetime="2025-07-23T11:01:55.000Z" title="发表于 2025-07-23 19:01:55">2025-07-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/21/%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E2%80%94%E2%80%94Redis%E9%AB%98%E7%BA%A7%E7%AF%87/" title="分布式缓存——Redis高级篇">分布式缓存——Redis高级篇</a><time datetime="2025-07-20T16:55:44.000Z" title="发表于 2025-07-21 00:55:44">2025-07-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/18/Spring%E6%A1%86%E6%9E%B6/" title="Spring框架">Spring框架</a><time datetime="2025-07-18T08:53:50.000Z" title="发表于 2025-07-18 16:53:50">2025-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/16/JavaSE-%E5%8F%8D%E5%B0%84/" title="JavaSE-反射">JavaSE-反射</a><time datetime="2025-07-16T07:11:44.000Z" title="发表于 2025-07-16 15:11:44">2025-07-16</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/miku2.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By KuoZ</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div></div></body></html>
