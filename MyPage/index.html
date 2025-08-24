@@ -1,1 +1,97 @@
-<iframe src="https://store.steampowered.com/widget/1030300/" frameborder="0" width="646" height="190"></iframe>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #222;
+    }
+    #orbit-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .fancy-title {
+      font-family: 'Pacifico', 'ZCOOL KuaiLe', cursive, sans-serif;
+      font-size: 2.2em;
+      letter-spacing: 2px;
+      color: #ffe066;
+      text-shadow: 0 2px 8px #222, 0 0 6px #ffe066;
+      margin-bottom: 0.2em;
+    }
+    .fancy-subtitle {
+      font-family: 'ZCOOL KuaiLe', 'Pacifico', cursive, sans-serif;
+      font-size: 1.4em;
+      color: #fff;
+      text-shadow: 0 1px 6px #222, 0 0 4px #ffe066;
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="orbit-canvas"></canvas>
+  <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <iframe src="https://store.steampowered.com/widget/1030300/" frameborder="0" width="646" height="190"></iframe>
+  </div>
+  <div style="position: fixed; top: 10px; width: 100%; text-align: center;">
+    <p class="fancy-title">欢迎！</p>
+    <p class="fancy-subtitle">请速速关注丝之歌喵！</p>
+  </div>
+  <script>
+    // 光点环绕动画
+    const canvas = document.getElementById('orbit-canvas');
+    const ctx = canvas.getContext('2d');
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
+
+    function resize() {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
+    }
+    window.addEventListener('resize', resize);
+
+    const centerX = () => w / 2;
+    const centerY = () => h / 2;
+    const radius = () => Math.min(w, h) / 2.5;
+    const dots = 12;
+    const dotRadius = 6;
+
+    function drawDots(angle) {
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < dots; i++) {
+        const a = angle + (i * 2 * Math.PI / dots);
+        const x = centerX() + Math.cos(a) * radius();
+        const y = centerY() + Math.sin(a) * radius();
+        ctx.beginPath();
+        ctx.arc(x, y, dotRadius, 0, 2 * Math.PI);
+        ctx.fillStyle = 'rgba(255,255,200,0.8)';
+        ctx.shadowColor = 'red';
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    let angle = 0;
+    let flag=0;
+    function animate() {
+      angle +=0.001;
+      drawDots(angle);
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
