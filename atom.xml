@@ -6,7 +6,7 @@
   <link href="http://cv-elevation.github.io/atom.xml" rel="self"/>
   
   <link href="http://cv-elevation.github.io/"/>
-  <updated>2025-08-06T01:29:36.774Z</updated>
+  <updated>2026-02-09T15:35:17.539Z</updated>
   <id>http://cv-elevation.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Add an assistant with dify</title>
+    <link href="http://cv-elevation.github.io/2026/02/09/Add-an-assistant-with-dify/"/>
+    <id>http://cv-elevation.github.io/2026/02/09/Add-an-assistant-with-dify/</id>
+    <published>2026-02-09T15:22:33.000Z</published>
+    <updated>2026-02-09T15:35:17.539Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="本文环境：">本文环境：</h3><ul><li>go 1.25</li><li>hexo框架</li><li>butterfly主题</li><li>dify 1.11.4</li></ul><h1>0 起</h1><p>突然想给自己的博客网站添加一个ai助手，帮助我提问关于博客有关的知识。</p><h1>1 选型</h1><p>目前搭建的博客网站是一个静态网站，是没有后端来处理的，所以为节省成本，不如直接就使用云服务来完成。<br>最后选择的是dify，他有如下优点：</p><ol><li>低代码平台，构建简单</li><li>有学生认证的优惠，零成本</li></ol><h1>2 工作流构建</h1><p>为了提高输出的质量，考虑将自己的博客内容作为知识库传给ai助手，在工作流中直接识别是否是博客相关内容。<br>最后构建出来的工作流如图所示：</p><p><img src="https://cdn.jsdelivr.net/gh/CV-Elevation/imgHub/article_img/image.png" alt="workflow"></p><p>用户输入问题，通过知识库检索给出检索结果。使用LLM判断query和检索结果是否相关，并输出格式化的数据。<br>根据格式化的数据进行分支，一路根据知识库结果回复，另一路直接处理回复。</p><h1>3 知识库的同步</h1><p>写完博客后，如何将博客内容同步到知识库呢？<br>有两种方案：<br>方案一：自动同步<br>自动去爬取博客内容，定时同步博客知识库。<br>优点：</p><ul><li>自动化程度高</li></ul><p>缺点：</p><ul><li>需要云服务器来部署服务，自行完成同步。成本较高。</li><li>同步的时机需要再仔细考量，是要设置定时任务来更新，还是设置触发器？</li><li>维护会更困难</li></ul><p>方案二： 手动同步<br>在本地使用hexo发布博客时使用脚本顺便更新知识库。<br>优点：</p><ul><li>成本低</li><li>逻辑简单</li><li>容易维护</li></ul><p>缺点：</p><ul><li>每次都要手动操作，需要多执行一条命令</li></ul><p>最后选择的时方案二</p><h1>4 知识库同步的实现</h1><p>查看知识库的api文档，看到有“从文本创建文档”这一条目，完美契合需求。</p><p>只需要发送类似这样的http请求就可以了</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl --request POST \</span><br><span class="line">  --url https://api.dify.ai/v1/datasets/&#123;dataset_id&#125;/document/create-by-file \</span><br><span class="line">  --header &#x27;Authorization: Bearer &lt;token&gt;&#x27; \</span><br><span class="line">  --header &#x27;Content-Type: multipart/form-data&#x27; \</span><br><span class="line">  --form &#x27;data=&#123;&quot;indexing_technique&quot;:&quot;high_quality&quot;,&quot;process_rule&quot;:&#123;&quot;mode&quot;:&quot;custom&quot;, &quot;rules&quot;: &#123; &quot;segmentation&quot;:&#123;&quot;separator&quot;:&quot;###&quot;, &quot;max_tokens&quot;:500&#125;&#125;&#125;&#125;&#x27; \</span><br><span class="line">  --form file=&#x27;@example-file&#x27;</span><br></pre></td></tr></table></figure><p>我使用go语言来编写代码</p><p>代码逻辑是：<br>读取命令行参数，确定本地文档所在目录-&gt;读取目录下的markdown文档-&gt;构建http请求，更新到知识库-&gt;返回结果</p><p>我的同步代码在这里 <a href="https://github.com/CV-Elevation/updateKnowledgeBaseCode">代码仓库</a><br>还有可以优化的地方，比如使用json等方式缓存已经构建过的文档，防止重复构建。</p><h1>5 嵌入ai助手</h1><p><strong>获取js代码</strong>：构建好dify应用后点击发布-&gt;嵌入到网站-&gt;复制js代码</p><p>我想实现在所有页面都可以随时点出来询问的效果。</p><p>首先在themes/butterfly/layout/_partial目录下创建dify.pug</p><p>将代码粘贴到其中。添加模块头dify。</p><p>由于footer.pug模块在各个页面中都会出现，可以考虑嵌入到这个部分。<br>在footer.pug的最后加上模块的引用。</p><h1>6 测试和微调</h1><p>本地测试，此时应该已经可以在右下角看到蓝色气泡了，点击应可以正常唤起。输入问题，可以给予正确的回复。</p><p>与原有组件冲突问题：</p><ul><li>当前气泡只有在页面底部才会出现，页面中间是没有的。</li><li>当前气泡的位置与我原来的网站的组件有重叠，所以需要微调位置。</li></ul><p>在当前dify版本，气泡的位置是直接由dify-chatbot-bubble-button来控制的。<br>修改参数，修改right改为60px，同时加上fixed，确保中间也有气泡。</p><p>再次测试，就可以获得正确的效果了。</p><p>目前还没有适配手机页面，手机竖屏看会有一些问题。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;本文环境：&quot;&gt;本文环境：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;go 1.25&lt;/li&gt;
+&lt;li&gt;hexo框架&lt;/li&gt;
+&lt;li&gt;butterfly主题&lt;/li&gt;
+&lt;li&gt;dify 1.11.4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;0 起&lt;/h1&gt;
+&lt;p&gt;突然想给自己的博客网站添</summary>
+      
+    
+    
+    
+    
+    <category term="dify" scheme="http://cv-elevation.github.io/tags/dify/"/>
+    
+  </entry>
   
   <entry>
     <title>2025电赛小结</title>
