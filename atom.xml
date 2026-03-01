@@ -6,7 +6,7 @@
   <link href="http://cv-elevation.github.io/atom.xml" rel="self"/>
   
   <link href="http://cv-elevation.github.io/"/>
-  <updated>2026-02-20T19:42:35.702Z</updated>
+  <updated>2026-03-01T08:04:02.064Z</updated>
   <id>http://cv-elevation.github.io/</id>
   
   <author>
@@ -17,23 +17,46 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>本地部署microservices-demo</title>
+    <link href="http://cv-elevation.github.io/2026/03/01/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2microservices-demo/"/>
+    <id>http://cv-elevation.github.io/2026/03/01/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2microservices-demo/</id>
+    <published>2026-03-01T08:02:18.000Z</published>
+    <updated>2026-03-01T08:04:02.064Z</updated>
+    
+    <content type="html"><![CDATA[<p>整体上的流程按照官方给的本地部署流程进行：</p><p><a href="https://github.com/GoogleCloudPlatform/microservices-demo/blob/main/docs/development-guide.md">https://github.com/GoogleCloudPlatform/microservices-demo/blob/main/docs/development-guide.md</a></p><p>环境：</p><p>archlinux+系统代理</p><h2 id="skaffold-run步骤">skaffold run步骤</h2><p>这一步的报错数量最多</p><ol><li></li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">emailservice: Error checking cache.</span><br><span class="line">getting <span class="built_in">hash</span> <span class="keyword">for</span> artifact <span class="string">&quot;emailservice&quot;</span>: getting dependencies <span class="keyword">for</span> <span class="string">&quot;emailservice&quot;</span>: parsing ONBUILD instructions: retrieving image <span class="string">&quot;python:3.14.2-alpine@sha256:31da4cb527055e4e3d7e9e006dffe9329f84ebea79eaca0a1f1c27ce61e40ca5&quot;</span>: Get <span class="string">&quot;https://index.docker.io/v2/&quot;</span>: dial tcp 202.160.128.16:443: i/o <span class="built_in">timeout</span></span><br></pre></td></tr></table></figure><p>类似这样的问题，解决方法：手动拉取镜像 docker pull python:3.14.2-alpine</p><p>之后再构建，即可通过</p><ol start="2"><li></li></ol><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> - emailservice: <span class="keyword">Not</span> found. Building</span><br><span class="line"> - productcatalogservice: Error checking cache.</span><br><span class="line">getting hash <span class="keyword">for</span> artifact &quot;productcatalogservice&quot;: getting dependencies <span class="keyword">for</span> &quot;productcatalogservice&quot;: parsing ONBUILD instructions: retrieving image &quot;gcr.io/distroless/static&quot;: Get &quot;https://gcr.io/v2/&quot;: dial tcp <span class="number">173</span>.<span class="number">194</span>.<span class="number">174</span>.<span class="number">82</span>:<span class="number">443</span>: i/o timeout</span><br></pre></td></tr></table></figure><p>类似这样的问题，从grc.io拉取镜像出错</p><p><img src="https://cdn.jsdelivr.net/gh/CV-Elevation/imgHub/article_img/%E8%BD%A9%E8%BE%95%E9%95%9C%E5%83%8F.png" alt="轩辕镜像"></p><p>无敌了轩辕镜像，拿钱不办事</p><p>解决方法：</p><p>从daocloud拉取，<a href="http://xn--dockerfilegcr-ve1vj66d5zr.io/distroless/static%E9%83%BD%E6%9B%B4%E6%94%B9%E6%88%90m.daocloud.io/gcr.io/distroless/static">再在dockerfile将gcr.io/distroless/static都更改成m.daocloud.io/gcr.io/distroless/static</a></p><ol start="3"><li>RUN go mod download出错，原因是容器不会继承shell的Go代理</li></ol><p>解决方法：</p><p>编辑dockerfile文件，将RUN go mod download更改为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN GOPROXY=https://goproxy.cn,direct go mod download</span><br></pre></td></tr></table></figure><ol start="4"><li></li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- deployment/redis-cart: container redis is waiting to start: redis:alpine can<span class="string">&#x27;t be pulled</span></span><br><span class="line"><span class="string">- pod/redis-cart-66669b5d5f-kmmng: container redis is waiting to start: redis:alpine can&#x27;</span>t be pulled</span><br><span class="line">- deployment/redis-cart failed. Error: container redis is waiting to start: redis:alpine can<span class="string">&#x27;t be pulled.</span></span><br></pre></td></tr></table></figure><p>手动拉取镜像，并部署到kind即可</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis:alpine</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save redis:alpine | docker <span class="built_in">exec</span> -i kind-control-plane ctr -n k8s.io images import -</span><br></pre></td></tr></table></figure><p>类似的问题还有这个，同样的拉取镜像并部署到kind就可以了</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> - deployment/loadgenerator: container frontend-check is waiting to start: busybox:latest can<span class="string">&#x27;t be pulled</span></span><br><span class="line"><span class="string">    - pod/loadgenerator-6b58b745b9-fn6hk: container frontend-check is waiting to start: busybox:latest can&#x27;</span>t be pulled</span><br><span class="line"> - deployment/loadgenerator failed. Error: container frontend-check is waiting to start: busybox:latest can<span class="string">&#x27;t be pulled.</span></span><br><span class="line"><span class="string">1/1 deployment(s) failed</span></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull busybox:latest</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save busybox:latest | docker <span class="built_in">exec</span> -i kind-control-plane ctr -n k8s.io images import -</span><br></pre></td></tr></table></figure><ol start="5"><li></li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR:BuildKit is enabled but the buildx component is missing or broken</span><br></pre></td></tr></table></figure><p>使用命令安装即可</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S docker-buildx</span><br></pre></td></tr></table></figure><p>顺带一提，我在wsl上部署，开始三十分钟后开始在linux机器上部署，最后的结果是linux先配置好了，，，就很神奇</p><p>或许是buildx又或者是虚拟网卡模式的好处。。。很多问题都没遇到</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;整体上的流程按照官方给的本地部署流程进行：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/GoogleCloudPlatform/microservices-demo/blob/main/docs/development-guide.md&quot;&gt;http</summary>
+      
+    
+    
+    
+    
+    <category term="项目" scheme="http://cv-elevation.github.io/tags/%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>一个失败大学生的自述</title>
     <link href="http://cv-elevation.github.io/2026/02/21/%E4%B8%80%E4%B8%AA%E5%A4%B1%E8%B4%A5%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%9A%84%E8%87%AA%E8%BF%B0/"/>
     <id>http://cv-elevation.github.io/2026/02/21/%E4%B8%80%E4%B8%AA%E5%A4%B1%E8%B4%A5%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%9A%84%E8%87%AA%E8%BF%B0/</id>
     <published>2026-02-20T19:41:19.000Z</published>
-    <updated>2026-02-20T19:42:35.702Z</updated>
+    <updated>2026-03-01T08:02:50.512Z</updated>
     
-    <content type="html"><![CDATA[<p>不记流水账，只想真诚表达感情和思想。</p><hr><p>可能是到年纪了，近期真的觉得x欲难以忍受。一年以前我还觉得靠自己的双手就可以解决。可是现在却实在难以抗拒，甚至觉得有些难过。<br>我觉得这实际上是一种我在人的共性上的失败。</p><hr><p>人是由过往的经历和关系决定的。</p><p>在中学，学校将很多人聚在一块，帮助推进学习和社交。</p><p>到了大学，很多长辈老师都说大学是靠自律，靠自驱力进步的。可是在应试教育的惯性下，这种自律往往被优先理解为学业的自律。关系上的进步被忽略掉了，至少被我忽略掉了。</p><p>在大学，确实和一些人有共同的爱好和想法，和一些人聊得很好，但他们几乎都是同性，这其实也是顺应环境变化的结果——男女比急剧增高。聊天过的女生一只手就能数过来，而且大多都聊得很浅。所以大学的新关系实在是很少。</p><p>新关系很少，留下的只剩经历。大多数的关系都来自于过去，而现在随着时间的推移，关系在离我远去。</p><p>所以我在大学确实是很失败。</p><p>接下来可以说是我乱想的结果，又或许只是给自己的心理慰藉。</p><p>所谓失败，其实是一种“经典路线”的失败，是千百年来由人们总结的，来自人的基因、人的种群特征以及人普遍的性欲、对金钱的渴望等欲望。这是几乎会影响每个人类的方面，也就是共性。</p><p>但是经典路线在执行到个人时，必定会产生个人路线，不同的人是不一样的。这也就是个性，共性和个性是对立统一的关系。现在缺失了共性，相应的又获得了个性。失败在共性，又取得了个性的成功，不也是很好的吗？</p><p>之前看到过，“诚实是一种勇气，因为你需要勇敢地真实表达自己”。所以现在就面对自己的个性，勇敢面对自己共性的失败吧。</p>]]></content>
+    <content type="html"><![CDATA[<p>不记流水账，只想真诚表达感情和思想。</p><hr><p>可能是到年纪了，近期真的觉得xx难以忍受。一年以前我还觉得靠自己就可以解决。可是现在却实在难以抗拒，甚至觉得有些难过。<br>我觉得这实际上是一种我在人的共性上的失败。</p><hr><p>人是由过往的经历和关系决定的。</p><p>在中学，学校将很多人聚在一块，帮助推进学习和社交。</p><p>到了大学，很多长辈老师都说大学是靠自律，靠自驱力进步的。可是在应试教育的惯性下，这种自律往往被优先理解为学业的自律。关系上的进步被忽略掉了，至少被我忽略掉了。</p><p>在大学，确实和一些人有共同的爱好和想法，和一些人聊得很好，但他们几乎都是同性，这其实也是顺应环境变化的结果——男女比急剧增高。聊天过的女生一只手就能数过来，而且大多都聊得很浅。所以大学的新关系实在是很少。</p><p>新关系很少，留下的只剩经历。大多数的关系都来自于过去，而现在随着时间的推移，关系在离我远去。</p><p>所以我在大学确实是很失败。</p><p>接下来可以说是我乱想的结果，又或许只是给自己的心理慰藉。</p><p>所谓失败，其实是一种“经典路线”的失败，是千百年来由人们总结的，来自人的基因、人的种群特征以及人普遍的性欲、对金钱的渴望等欲望。这是几乎会影响每个人类的方面，也就是共性。</p><p>但是经典路线在执行到个人时，必定会产生个人路线，不同的人是不一样的。这也就是个性，共性和个性是对立统一的关系。现在缺失了共性，相应的又获得了个性。失败在共性，又取得了个性的成功，不也是很好的吗？</p><p>之前看到过，“诚实是一种勇气，因为你需要勇敢地真实表达自己”。所以现在就面对自己的个性，勇敢面对自己共性的失败吧。</p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;不记流水账，只想真诚表达感情和思想。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;可能是到年纪了，近期真的觉得x欲难以忍受。一年以前我还觉得靠自己的双手就可以解决。可是现在却实在难以抗拒，甚至觉得有些难过。&lt;br&gt;
+&lt;p&gt;可能是到年纪了，近期真的觉得xx难以忍受。一年以前我还觉得靠自己就可以解决。可是现在却实在难以抗拒，甚至觉得有些难过。&lt;br&gt;
 我觉得这实际上是一种我在人的共性上的失败。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;人是由过往</summary>
+&lt;p&gt;人是由过往的经历</summary>
       
     
     
