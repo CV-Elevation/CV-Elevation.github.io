@@ -6,7 +6,7 @@
   <link href="http://cv-elevation.github.io/atom.xml" rel="self"/>
   
   <link href="http://cv-elevation.github.io/"/>
-  <updated>2026-03-01T08:04:02.064Z</updated>
+  <updated>2026-03-07T06:22:44.886Z</updated>
   <id>http://cv-elevation.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>打造一个干净的b站</title>
+    <link href="http://cv-elevation.github.io/2026/03/07/%E6%89%93%E9%80%A0%E4%B8%80%E4%B8%AA%E5%B9%B2%E5%87%80%E7%9A%84bilibili/"/>
+    <id>http://cv-elevation.github.io/2026/03/07/%E6%89%93%E9%80%A0%E4%B8%80%E4%B8%AA%E5%B9%B2%E5%87%80%E7%9A%84bilibili/</id>
+    <published>2026-03-07T06:22:00.000Z</published>
+    <updated>2026-03-07T06:22:44.886Z</updated>
+    
+    <content type="html"><![CDATA[<h1>打造一个干净的b站</h1><p>先来看最终效果</p><p>首页：</p><p><img src="https://cdn.jsdelivr.net/gh/CV-Elevation/imgHub/article_img/image-20260306171059497.png" alt="最终效果"></p><p>搜索：</p><p><img src="https://cdn.jsdelivr.net/gh/CV-Elevation/imgHub/article_img/image-20260306171125201.png" alt="搜索部件"></p><p>视频观看：</p><p><img src="https://cdn.jsdelivr.net/gh/CV-Elevation/imgHub/article_img/image-20260306171138771.png" alt="视频观看"></p><p>实现方式：</p><ol><li><p>使用b站的搜索页面<a href="https://search.bilibili.com">https://search.bilibili.com</a></p></li><li><p>安装插件 Adblock Plus</p></li><li><p>使用adblock plus插件拦截元素，可以使用插件的元素选取功能拦截元素，也可直接copy我下方写的规则：</p></li></ol><p><img src="https://cdn.jsdelivr.net/gh/CV-Elevation/imgHub/article_img/image-20260306171702633.png" alt="插件"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">search.bilibili.com##.bili-header__bar.mini-header</span><br><span class="line">bilibili.com##.rec-list</span><br><span class="line">bilibili.com##.bili-header__bar.mini-header</span><br><span class="line">bilibili.com##.rec-footer</span><br><span class="line">bilibili.com##.bili-feed4-layout</span><br><span class="line">bilibili.com##.header-channel-fixed</span><br><span class="line">bilibili.com##.trending</span><br><span class="line">search.bilibili.com##.center-title-text.brand_blue.pl_xl</span><br></pre></td></tr></table></figure><p>至于客户端，最好的效果就是使用国际版的bilibili，但也只能减少广告和无用功能，依然免不了被推流算法影响。</p><p>所以卸了罢，让手机回到最开始的通信工具罢(╯‵□′)╯︵┻━┻</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;打造一个干净的b站&lt;/h1&gt;
+&lt;p&gt;先来看最终效果&lt;/p&gt;
+&lt;p&gt;首页：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/CV-Elevation/imgHub/article_img/image-2026030617105949</summary>
+      
+    
+    
+    
+    
+    <category term="工具" scheme="http://cv-elevation.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>本地部署microservices-demo</title>
